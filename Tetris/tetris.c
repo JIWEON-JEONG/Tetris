@@ -119,6 +119,7 @@ int checkChange() {
 	//check!!! 블록이 이동가능한지 가능안한지 어떻게 체크 할 것인가.
 	int i;
 	int row, column;
+	int changed = TRUE;
 	for (i = 0; i < NUM_BLOCK_POINT; i++) {
 		row = blockPattern[tempBlock.type][tempBlock.dir][i].row;
 		column = blockPattern[tempBlock.type][tempBlock.dir][i].column;
@@ -126,14 +127,17 @@ int checkChange() {
 		row += tempPosition.row;
 		column += tempPosition.column;
 
-		if (row == 0 || row == 9 || column == 14 ) {
-			return FALSE;
+		if (baseGround[column][row] != PRINT_EMPTY) {
+			changed = FALSE;
+			break;
 		}
 	}
 	//if it is possible to change
-	currentPosition = tempPosition;
-	currentBlock = tempBlock;
-	return TRUE;
+	if (changed == TRUE) {
+		currentPosition = tempPosition;
+		currentBlock = tempBlock;
+	}
+	return changed;
 }
 //move함수 in ppt
 void setplayGround() {
@@ -178,3 +182,27 @@ void addBlockOnBase() {
 		baseGround[column][row] = PRINT_BLOCK;
 	}
 }
+
+int checkRemoveOneLine(int column) {                  // int column 받아오는 이유 : 줄이 완성되는 세로가 맨 밑 고정이 아닌 어디든지 생길수 있기 때문.
+	int i;
+	for (i = 0; i < SIZE_ROW-1; i++) {
+		if (baseGround[column][i] == PRINT_EMPTY) {
+			return FALSE;
+		}	
+	}
+	return TRUE;
+}
+
+int removeOneLine(int column) {   //int 타입리턴형
+	int i, k;
+	if (checkRemoveOneLine(column)) {
+		for (i = column; i > 1; i--) {
+			for (k = 1; k < SIZE_ROW - 1; k++) {
+				baseGround[i][k] = baseGround[i - 1][k];
+			}
+		}
+		return TRUE;
+	}
+	return FALSE;
+}
+

@@ -30,6 +30,10 @@ int main() {
 			else {
 				if (key == KEY_DOWN) {
 					addBlockOnBase();  // copy baseGround
+					if (removeOneLine(SIZE_COLUMN - 2)) {
+						setplayGround();
+						showGround();
+					}
 					generateNewBlock();
 					setplayGround();
 					showGround();

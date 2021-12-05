@@ -48,4 +48,6 @@ void changeBlockInform(int key);
 int checkChange();
 void setplayGround();
 void addBlockOnBase();
+int checkRemoveOneLine(int column);
+int removeOneLine(int column);   
 #endif
