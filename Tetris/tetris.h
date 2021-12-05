@@ -47,4 +47,5 @@ void showGround();
 void changeBlockInform(int key);
 int checkChange();
 void setplayGround();
+void addBlockOnBase();
 #endif

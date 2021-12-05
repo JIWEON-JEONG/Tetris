@@ -25,11 +25,18 @@ int main() {
 			if (checkChange() == TRUE) {
 				setplayGround();
 				showGround();
+				changed = FALSE;
 			}
 			else {
-
+				if (key == KEY_DOWN) {
+					addBlockOnBase();  // copy baseGround
+					generateNewBlock();
+					setplayGround();
+					showGround();
+					changed = FALSE;
+				}
 			}
-			changed = FALSE;
+			
 		}
 	}
 	return 0;

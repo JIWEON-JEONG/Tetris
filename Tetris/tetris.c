@@ -165,3 +165,16 @@ int getKey() {
 	}
 	return key;
 }
+
+void addBlockOnBase() {
+	int i, row, column;
+	for (i = 0; i < NUM_BLOCK_POINT; i++) {
+		row = blockPattern[currentBlock.type][currentBlock.dir][i].row;
+		column = blockPattern[currentBlock.type][currentBlock.dir][i].column;
+
+		row += currentPosition.row;
+		column += currentPosition.column;
+		
+		baseGround[column][row] = PRINT_BLOCK;
+	}
+}
