@@ -13,7 +13,7 @@
 #define SIZE_ROW	10
 #define SIZE_COLUMN	15
 
-#define NUM_BLOCK_TYPE	2
+#define NUM_BLOCK_TYPE	3
 #define NUM_BLOCK_DIR	4
 #define NUM_BLOCK_POINT	4
 
@@ -41,13 +41,16 @@ typedef struct _Block {
 int getKey();
 void gotoxy(int row, int column);
 int timeCheck(int timeValue);
+int waitTime(int timeValue);
 void init();
 void generateNewBlock();
 void showGround();
 void changeBlockInform(int key);
 int checkChange();
-void setplayGround();
+void setplayGround(int addBlockFlag);
 void addBlockOnBase();
 int checkRemoveOneLine(int column);
 int removeOneLine(int column);   
+void removeLines();
+int checkFinish();
 #endif

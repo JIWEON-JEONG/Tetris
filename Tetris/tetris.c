@@ -140,7 +140,7 @@ int checkChange() {
 	return changed;
 }
 //move함수 in ppt
-void setplayGround() {
+void setplayGround(int addBlockFlag) {    // 매개변수 : 블럭을 추가시킬거냐 말거냐.
 	int i, k;
 	int row, column;
 
@@ -150,14 +150,16 @@ void setplayGround() {
 		}
 	}
 	// 이부분 잘 이해**
-	for (i = 0; i < NUM_BLOCK_POINT; i++) {
-		row = blockPattern[currentBlock.type][currentBlock.dir][i].row;
-		column = blockPattern[currentBlock.type][currentBlock.dir][i].column;
+	if (addBlockFlag == TRUE) {
+		for (i = 0; i < NUM_BLOCK_POINT; i++) {
+			row = blockPattern[currentBlock.type][currentBlock.dir][i].row;
+			column = blockPattern[currentBlock.type][currentBlock.dir][i].column;
 
-		row += currentPosition.row;
-		column += currentPosition.column;
+			row += currentPosition.row;
+			column += currentPosition.column;
 
-		playGround[column][row] = PRINT_BLOCK;
+			playGround[column][row] = PRINT_BLOCK;
+		}
 	}
 }
 
@@ -206,3 +208,37 @@ int removeOneLine(int column) {   //int 타입리턴형
 	return FALSE;
 }
 
+void removeLines() {
+	int i;
+	for (i = SIZE_COLUMN - 2; i > 1; i--) {			//i 범위 헷갈리지말기
+		if (removeOneLine(i) == TRUE) {
+			setplayGround(FALSE);
+			showGround();
+			i++;
+			waitTime(500); //0.5sec
+		}
+	}
+}
+
+int checkFinish() {
+	int i, row, column;
+	for (i = 0; i < NUM_BLOCK_POINT; i++) {
+		row = blockPattern[currentBlock.type][currentBlock.dir][i].row;
+		column = blockPattern[currentBlock.type][currentBlock.dir][i].column;
+
+		row += currentPosition.row;
+		column += currentPosition.column;
+
+		if (baseGround[column][row] != PRINT_EMPTY) {
+			gotoxy(SIZE_COLUMN / 2 - 2, 5);
+			printf("===============");
+			gotoxy(SIZE_COLUMN / 2 - 1, 5);
+			printf(" GAMEOVER ");
+			gotoxy(SIZE_COLUMN / 2, 5);
+			printf("===============");
+			return TRUE;
+		}
+	}
+	return FALSE;
+	
+}

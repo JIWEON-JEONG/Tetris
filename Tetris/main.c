@@ -7,7 +7,7 @@ int main() {
 	int key;
 	int changed = FALSE;
 	init();
-	setplayGround();
+	setplayGround(TRUE);
 	showGround();
 
 	while (1) {
@@ -23,19 +23,19 @@ int main() {
 		if (changed == TRUE) {
 			changeBlockInform(key);
 			if (checkChange() == TRUE) {
-				setplayGround();
+				setplayGround(TRUE); //블럭추가해야되니까 TRUE
 				showGround();
 				changed = FALSE;
 			}
 			else {
 				if (key == KEY_DOWN) {
 					addBlockOnBase();  // copy baseGround
-					if (removeOneLine(SIZE_COLUMN - 2)) {
-						setplayGround();
-						showGround();
-					}
+					removeLines();
 					generateNewBlock();
-					setplayGround();
+					if (TRUE == checkFinish() ) {
+						break;
+					}//새로운 블럭을 만들고 그 블럭을 display 할수 있느냐 없느냔
+					setplayGround(TRUE);
 					showGround();
 					changed = FALSE;
 				}

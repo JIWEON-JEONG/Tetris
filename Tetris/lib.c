@@ -25,3 +25,12 @@ int timeCheck(int timeValue) {
 	return FALSE;
 
 }
+
+int waitTime(int timeValue) {
+	while (1) {
+		if (timeCheck(timeValue) == TRUE) {
+			break;
+		}
+	}
+	return 0;
+}
